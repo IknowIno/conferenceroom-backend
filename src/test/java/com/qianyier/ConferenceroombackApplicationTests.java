@@ -110,10 +110,10 @@ class ConferenceroombackApplicationTests {
          content.put("result","申请通过");
          content.put("theme","asdasda");
          content.put("applyTime","2020-06-25 15:02:00");
-       //boolean b =  emailService.sendStartMail("zyfgoup@qq.com","测试邮件发送",content);
+       //boolean b =  emailService.sendStartMail("1984196795@qq.com","测试邮件发送",content);
 
 
-       emailService.sendAuditMail("zyfgoup@qq.com","测试审核结果通知",content);
+       emailService.sendAuditMail("1984196795@qq.com","测试审核结果通知",content);
 
      }
 

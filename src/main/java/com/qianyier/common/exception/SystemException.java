@@ -1,8 +1,7 @@
 package com.qianyier.common.exception;
 
 /**
- * @Author Zyfgoup
- * @Date 2020/6/26 14:55
+ * @Author qianyier
  * @Description
  */
 public class SystemException extends Exception {

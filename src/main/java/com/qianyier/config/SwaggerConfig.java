@@ -38,7 +38,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.zyfgoup.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.qianyier.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .globalOperationParameters(pars);
@@ -47,7 +47,7 @@ public class SwaggerConfig {
 
     //显示的信息
     private ApiInfo apiInfo() {
-        Contact contact = new Contact("Zyfgoup", "Zyfgoup.github.io", "619122012@qq.com");
+        Contact contact = new Contact("qianyier", "qianyier.github.io", "1984196795@qq.com");
 
         return new ApiInfoBuilder()
                 .title("api document")
