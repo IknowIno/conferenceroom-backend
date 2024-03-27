@@ -9,8 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 /**
- * @Author Zyfgoup
- * @Date 2020/6/26 15:35
+ * @Author qianyier
  * @Description
  */
 
