@@ -24,8 +24,6 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private TemplateEngine templateEngine;
 
-
-
     //从application.properties配置文件中注入发送者的邮件地址
     @Value("${spring.mail.username}")
     private String fromEmail;

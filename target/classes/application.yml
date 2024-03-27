@@ -11,14 +11,11 @@ spring:
     password: jyq369258
     database: 0
   mail:
-    #邮件协议smtp
     host: smtp.qq.com
-    #发送者的邮件的用户名   用QQ登录
-    username: xxxxxxxx@qq.com
-          #使用的编码
+    username: 1984196795@qq.com
     default-encoding: utf-8
-          #移动端客户授权码(在邮箱中设置)
-    password: xxxxxxxxxxxxxx
+          #移动端客户授权码
+    password: ioecgnccwmljehch
     port: 465
     properties:
          mail:
@@ -29,17 +26,14 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
-  #驼峰 默认开启
   configuration:
     map-underscore-to-camel-case: true
 
 #    输出到日志文件中 org.apache.ibatis.logging.slf4j.Slf4jImpl
-# 如果是控制台 org.apache.ibatis.logging.stdout.StdOutImpl
+#    如果是控制台 org.apache.ibatis.logging.stdout.StdOutImpl
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
 server:
   port: 8888
-
-
 
 shiro-redis:
   enabled: true
