@@ -1,14 +1,14 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/meeting?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://8.130.134.153:3306/conferenceroom?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
-    password: 123456
+    password: jyq369258
     type: com.alibaba.druid.pool.DruidDataSource
   redis:
-    host: 127.0.0.1
+    host: 8.130.134.153
     port: 6379
-    password: 123456
+    password: jyq369258
     database: 0
   mail:
     #邮件协议smtp
@@ -44,8 +44,8 @@ server:
 shiro-redis:
   enabled: true
   redis-manager:
-    host: 127.0.0.1:6379
-    password: 123456
+    host: 8.130.134.153:6379
+    password: jyq369258
 
 zyfgoup:
   jwt:

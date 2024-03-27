@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zyfgoup.mapper.ApplyMapper">
+<mapper namespace="com.qianyier.mapper.ApplyMapper">
 
 
     <!-- 分三种情况 第一种 已申请会议的开始时间在新申请的开始时间和结束时间之间（三种情况的新申请开始结束都加减了30分钟（为了整点其实是29）

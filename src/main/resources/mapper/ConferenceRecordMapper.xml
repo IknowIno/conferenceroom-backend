@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zyfgoup.mapper.ConferenceRecordMapper">
+<mapper namespace="com.qianyier.mapper.ConferenceRecordMapper">
 
 
 
-    <select id="listByConditions" resultType="com.zyfgoup.entity.group.ConRApplyRecord">
+    <select id="listByConditions" resultType="com.qianyier.entity.group.ConRApplyRecord">
         select a.apply_id,audit_state,audit_time,apply_time,reject_reason,
         start_time,end_time,theme,digest,cre.person_count,
         d.dep_no,dep_name,dep_email,
