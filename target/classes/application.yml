@@ -41,7 +41,7 @@ shiro-redis:
     host: 8.130.134.153:6379
     password: jyq369258
 
-zyfgoup:
+qianyier:
   jwt:
     secret: f4e2e52034348f86b67cde581c0f9eb5
 #token 过期时间 秒 7天
