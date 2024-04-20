@@ -55,7 +55,6 @@ public class JwtFilter extends AuthenticatingFilter {
                 // token过期了
                 throw new ExpiredCredentialsException("认证已过期，请重新登录");
             }
-
             // 执行登录
             return executeLogin(servletRequest, servletResponse);
         }

@@ -67,14 +67,11 @@ public class AccountRealm extends AuthorizingRealm {
         if(department==null){
             Employee employee = employeeService.getById(userId);
             if(employee ==null){
-
                Admin admin = adminService.getById(Long.valueOf(userId));
                 if(admin == null) {
-
                     throw new UnknownAccountException("用户不存在");
                 }else{
                     //管理员
-
                     AccountProfile profile = new AccountProfile();
                     profile.setId(String.valueOf(admin.getId()));
                     profile.setRole(admin.getRole());
@@ -90,11 +87,12 @@ public class AccountRealm extends AuthorizingRealm {
 
                 return new SimpleAuthenticationInfo(profile, jwtToken.getCredentials(), getName());
             }
-
         }else{
+            //部门
             AccountProfile profile = new AccountProfile();
             profile.setId(department.getDepId());
             profile.setRole(department.getRole());
+
             return new SimpleAuthenticationInfo(profile, jwtToken.getCredentials(), getName());
         }
 
