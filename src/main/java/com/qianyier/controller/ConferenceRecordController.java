@@ -59,7 +59,7 @@ public class ConferenceRecordController {
         String name = (String) JSON.parse(depName);
         Integer state = Integer.valueOf(auditState);
 
-        //因为有可能管理员查的时候传的是空的 所以要用JSON转
+        //有可能管理员查的时候传的是空的 所以要用JSON转
         Integer deleted1 = (Integer) JSON.parse(deleted);
 
         //这里传入当前页数 到了service层转化为记录的开始下标给mapper

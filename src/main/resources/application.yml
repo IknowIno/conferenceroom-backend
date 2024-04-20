@@ -1,14 +1,14 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://8.130.134.153:3306/conferenceroom?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://121.196.246.14:3306/dualelection?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
-    password: jyq369258
+    password: lyt369258
     type: com.alibaba.druid.pool.DruidDataSource
   redis:
-    host: 8.130.134.153
+    host: 121.196.246.14
     port: 6379
-    password: jyq369258
+    password: lyt369258
     database: 0
   mail:
     host: smtp.qq.com
@@ -38,8 +38,8 @@ server:
 shiro-redis:
   enabled: true
   redis-manager:
-    host: 8.130.134.153:6379
-    password: jyq369258
+    host: 121.196.246.14:6379
+    password: lyt369258
 
 qianyier:
   jwt:

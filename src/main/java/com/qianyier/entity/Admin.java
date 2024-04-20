@@ -26,7 +26,7 @@ public class Admin implements Serializable {
      * id
      */
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+        private Integer adminId;
 
     /**
      * 管理员用户名

@@ -2,10 +2,14 @@ package com.qianyier.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -17,30 +21,23 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Device implements Serializable {
+public class Record implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * id
+     * 主键自增
      */
-    @TableId(value = "did", type = IdType.AUTO)
-    private Integer did;
+    @TableId(value = "recordId", type = IdType.AUTO)
+    private Integer recordId;
 
-    /**
-     * 名称
-     */
-    private String dname;
+    private String stuId;
 
-    /**
-     * 设备数量
-     */
-    private Integer dnumber;
+    private String teaId;
 
-    /**
-     * 会议室id
-     */
-    private Integer roomId;
+    private String stuName;
+
+    private String teaName;
 
 
 }
