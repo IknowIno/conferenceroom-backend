@@ -19,11 +19,5 @@ import java.util.List;
 @Repository
 public interface ApplyMapper extends BaseMapper<Apply> {
 
-    /**
-     * 自定义的查询语句  查询申请是否时间冲突
-     *
-     */
-
-    List<Integer> searchTimeConflict(@Param("roomId") Integer roomId, @Param("startTime") LocalDateTime startTime, @Param("endTime") LocalDateTime endTime);
 
 }

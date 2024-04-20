@@ -1,6 +1,6 @@
 package com.qianyier.service;
 
-import com.qianyier.entity.Employee;
+import com.qianyier.entity.applyRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,6 +10,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  *
  * @author qianyier
  */
-public interface EmployeeService extends IService<Employee> {
+public interface applyRecordService extends IService<applyRecord> {
 
 }
+
+

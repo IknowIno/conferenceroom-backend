@@ -15,5 +15,5 @@ import java.util.List;
  */
 public interface ApplyService extends IService<Apply> {
 
-    List<Integer> searchTimeConflict(Integer roomId, LocalDateTime startTime, LocalDateTime endTime);
+
 }
