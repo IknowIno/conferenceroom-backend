@@ -32,4 +32,13 @@ public class ApplyServiceImpl extends ServiceImpl<ApplyMapper, Apply> implements
     public List<Apply> getAllApplyByTea(String teaId) {
         return applyMapper.getAllApplyByTea(teaId);
     }
+
+    @Override
+    public Apply getApplyByStu(String stuId){
+        return applyMapper.getApplyByStu(stuId);
+    }
+    @Override
+    public Integer changeAuditState(String applyId,Integer auditState){
+        return applyMapper.changeAuditState(applyId,auditState);
+    }
 }

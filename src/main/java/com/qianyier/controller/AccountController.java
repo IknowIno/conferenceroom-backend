@@ -7,6 +7,7 @@ import com.qianyier.common.dto.LoginDto;
 import com.qianyier.common.lang.Result;
 
 import com.qianyier.entity.Admin;
+import com.qianyier.entity.Apply;
 import com.qianyier.entity.Student;
 import com.qianyier.entity.Teacher;
 import com.qianyier.service.AdminService;
@@ -16,7 +17,9 @@ import com.qianyier.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExpiredCredentialsException;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -179,4 +182,65 @@ public class AccountController {
         SecurityUtils.getSubject().logout();
         return Result.succ("退出成功");
     }
+
+    @PostMapping("/addstudent")
+    public Result addStudent(@RequestBody Student student){
+
+        Student student1 = studentService.getOne(new QueryWrapper<Student>()
+                .eq("stuId",student.getStuId()));
+        if (student1!=null){
+            return Result.fail("该用户已存在");
+        }else{
+            student.setPassword(SecureUtil.md5(student.getPassword()));
+            studentService.save(student);
+            return Result.succ("");
+        }
+    }
+
+    @PostMapping("/addteacher")
+    public Result addteacher(@RequestBody Teacher teacher){
+
+        Teacher teacher1 = teacherService.getOne(new QueryWrapper<Teacher>()
+                .eq("stuId",teacher.getTeaId()));
+        if (teacher1!=null){
+            return Result.fail("该用户已存在");
+        }else{
+            teacher.setPassword(SecureUtil.md5(teacher.getPassword()));
+            teacherService.save(teacher);
+            return Result.succ("");
+        }
+    }
+
+    @PostMapping("/updatestuinfo")
+    public Result updateStu(@RequestBody Student student){
+
+        if (studentService.getById(student.getStuId())!=null){
+            studentService.updateStuInfo(student.getStuId(),student.getStuEmail(),student.getSelfIntroduction(), student.getStudyPlan());
+            return Result.succ("");
+        }else {
+            return Result.fail("未查到该用户");
+        }
+    }
+
+    @PostMapping("/updateteainfo")
+    public Result updateTea(@RequestBody Teacher teacher){
+
+        if (teacherService.getById(teacher.getTeaId())!=null){
+            teacherService.updateTeaInfo(teacher.getTeaId(),teacher.getTeaEmail(),teacher.getResearchDirection(), teacher.getScientificResults());
+            return Result.succ("");
+        }else {
+            return Result.fail("未查到该用户");
+        }
+    }
+
+
 }
+
+//        //如果是修改的时候 是可以判断出存在的 还要判断id
+//        if(employee1!=null && (employee.getEId()==null || employee.getEId().equals(""))){
+//            return Result.fail("该部门已存在此工号,请设置其他工号");
+//        }
+//
+//        employee.setEPassword(SecureUtil.md5(employee.getEPassword()));
+//
+//        employeeService.saveOrUpdate(employee);

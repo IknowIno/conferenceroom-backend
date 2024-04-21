@@ -18,4 +18,8 @@ public interface ApplyService extends IService<Apply> {
     public List<Apply> getApplyByTeaAndState(String teaId,Integer auditState);
 
     public List<Apply> getAllApplyByTea(String teaId);
+
+    public Apply getApplyByStu(String stuId);
+
+    public Integer changeAuditState(String applyId,Integer auditState);
 }
