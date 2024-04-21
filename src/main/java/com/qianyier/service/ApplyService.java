@@ -15,5 +15,7 @@ import java.util.List;
  */
 public interface ApplyService extends IService<Apply> {
 
+    public List<Apply> getApplyByTeaAndState(String teaId,Integer auditState);
 
+    public List<Apply> getAllApplyByTea(String teaId);
 }

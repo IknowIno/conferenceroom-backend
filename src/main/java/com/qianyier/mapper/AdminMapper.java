@@ -2,7 +2,7 @@ package com.qianyier.mapper;
 
 import com.qianyier.entity.Admin;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author qianyier
  */
-@Repository
+@Mapper
 public interface AdminMapper extends BaseMapper<Admin> {
 
 }

@@ -1,6 +1,8 @@
 package com.qianyier.controller;
 
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.qianyier.common.dto.Record;
 import com.qianyier.common.lang.Result;
@@ -32,11 +34,11 @@ public class ApplyController {
     @Autowired
     ApplyService applyService;
 
-    @Autowired
-    ConferenceRecordService conferenceRecordService;
+//    @Autowired
+//    ConferenceRecordService conferenceRecordService;
 
-    @Autowired
-    ConferenceRoomService conferenceRoomService;
+//    @Autowired
+//    ConferenceRoomService conferenceRoomService;
 
 
     /**
@@ -56,53 +58,77 @@ public class ApplyController {
        }
      *
      *
-     * 添加一个会议室申请申请
+     * 添加一个学生发起的申请
      * @return
      */
     @PostMapping("/add")
-    @RequiresRoles(value = "user")
-    public Result add(@RequestBody Record record){
-
-        Apply apply = record.getApply();
-        ConferenceRecord conferenceRecord = record.getConferenceRecord();
+    @RequiresRoles(value = {"student","admin"},logical = Logical.OR)
+    public Result add(@RequestBody Apply apply){
         applyService.save(apply);
-
-        //要设置外键
-        conferenceRecord.setApplyId(apply.getApplyId());
-        conferenceRecordService.save(conferenceRecord);
-
         return Result.succ("");
 
     }
+
+    //取消一个申请
+    @DeleteMapping("/del")
+    @RequiresRoles(value = {"student","admin"},logical = Logical.OR)
+    public Result delete(@RequestBody String stuId){
+        applyService.removeById(stuId);
+        return Result.succ("");
+    }
+
+    /**
+     * 查看一个导师收到的所有申请,根据导师id和状态查询
+     */
+    @GetMapping("/getapplybytea/{teaId}")
+    @RequiresRoles(value = {"admin","teacher"},logical = Logical.OR)
+    public Result getByIdAndState(@PathVariable("teaId") String teaId,@RequestBody Integer auditState){
+        List<Apply> applyList = applyService.getApplyByTeaAndState(teaId,auditState);
+
+        return Result.succ(applyList);
+    }
+
+    /**
+     * 查看一个导师收到的所有申请,无论是否通过
+     */
+    @GetMapping("/getallapplybytea/{teaId}")
+    @RequiresRoles(value = {"admin","teacher"},logical = Logical.OR)
+    public Result getAllById(@PathVariable("teaId") String teaId){
+        List<Apply> applyList = applyService.getAllApplyByTea(teaId);
+
+        return Result.succ(applyList);
+    }
+
+
 
     /**
      * 管理员紧急申请
      * @param record
      * @return
      */
-    @PostMapping("/addbyadmin")
-    @RequiresRoles(value = "admin")
-    public Result addByAdmin(@RequestBody Record record){
-
-        System.out.println(record);
-
-        Apply apply = record.getApply();
-        ConferenceRecord conferenceRecord = record.getConferenceRecord();
-        applyService.save(apply);
-
-        System.out.println(apply);
-
-        //直接通过  因为时间冲突在前端判断过了  save会将id回显给apply
-        applyService.update(new UpdateWrapper<Apply>().eq("apply_id",apply.getApplyId())
-        .set("audit_state",1));
-
-        //要设置外键
-        conferenceRecord.setApplyId(apply.getApplyId());
-        conferenceRecordService.save(conferenceRecord);
-
-        return Result.succ("");
-
-    }
+//    @PostMapping("/addbyadmin")
+//    @RequiresRoles(value = "admin")
+//    public Result addByAdmin(@RequestBody Record record){
+//
+//        System.out.println(record);
+//
+//        Apply apply = record.getApply();
+//        ConferenceRecord conferenceRecord = record.getConferenceRecord();
+//        applyService.save(apply);
+//
+//        System.out.println(apply);
+//
+//        //直接通过  因为时间冲突在前端判断过了  save会将id回显给apply
+//        applyService.update(new UpdateWrapper<Apply>().eq("apply_id",apply.getApplyId())
+//        .set("audit_state",1));
+//
+//        //要设置外键
+//        conferenceRecord.setApplyId(apply.getApplyId());
+//        conferenceRecordService.save(conferenceRecord);
+//
+//        return Result.succ("");
+//
+//    }
 
 
     /**

@@ -7,11 +7,11 @@ import com.qianyier.common.dto.LoginDto;
 import com.qianyier.common.lang.Result;
 
 import com.qianyier.entity.Admin;
-import com.qianyier.entity.Department;
-import com.qianyier.entity.Employee;
+import com.qianyier.entity.Student;
+import com.qianyier.entity.Teacher;
 import com.qianyier.service.AdminService;
-import com.qianyier.service.DepartmentService;
-import com.qianyier.service.EmployeeService;
+import com.qianyier.service.StudentService;
+import com.qianyier.service.TeacherService;
 import com.qianyier.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import org.apache.shiro.SecurityUtils;
@@ -31,13 +31,13 @@ import javax.servlet.http.HttpServletResponse;
 public class AccountController {
 
     @Autowired
-    DepartmentService departmentService;
+    TeacherService teacherService;
 
     @Autowired
     AdminService adminService;
 
     @Autowired
-    EmployeeService employeeService;
+    StudentService studentService;
 
     @Autowired
     JwtUtils jwtUtils;
@@ -67,30 +67,29 @@ public class AccountController {
         response.setHeader("Access-control-Expose-Headers", "Authorization");
 
         if (flag) {
-            Admin admin = adminService.getOne(new QueryWrapper<Admin>().eq("id", id));
-            Department department = departmentService.getOne(new QueryWrapper<Department>().eq("dep_id", id));
-            Employee employee = employeeService.getOne(new QueryWrapper<Employee>().eq("e_id", id));
+            Admin admin = adminService.getOne(new QueryWrapper<Admin>().eq("adminId", id));
+            Teacher teacher = teacherService.getOne(new QueryWrapper<Teacher>().eq("teaId", id));
+            Student student = studentService.getOne(new QueryWrapper<Student>().eq("stuId", id));
             if (admin != null) {
                 return Result.succ(MapUtil.builder()
-                        .put("id", admin.getId())
+                        .put("id", admin.getAdminId())
                         .put("username", "管理员")
                         .put("role", admin.getRole())
                         .map()
                 );
-            } else if (department != null) {
+            } else if (teacher != null) {
                 return Result.succ(MapUtil.builder()
                         //注意这里将long型id字符串 不然前台获取会四舍五入
-                        .put("id", department.getDepId())
-                        .put("username", department.getDepName())
-                        .put("role", department.getRole())
+                        .put("id", teacher.getTeaId())
+                        .put("username", teacher.getTeaName())
+                        .put("role", teacher.getRole())
                         .map()
                 );
             } else {
                 return Result.succ(MapUtil.builder()
-                        .put("id", employee.getEId())
-                        .put("username", employee.getEName())
-                        .put("role", employee.getRole())
-                        .put("depId", employee.getDepId())
+                        .put("id", student.getStuId())
+                        .put("username", student.getStuName())
+                        .put("role", student.getRole())
                         .map()
                 );
             }
@@ -100,15 +99,15 @@ public class AccountController {
 
     @PostMapping("/login")
     public Result login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
-        Department department = departmentService.getOne(new QueryWrapper<Department>().eq("dep_no", loginDto.getUsername()));
+        Teacher teacher = teacherService.getOne(new QueryWrapper<Teacher>().eq("teaId", loginDto.getUsername()));
 
-        //部门为空
-        if (department == null) {
-            //判断员工
-            Employee employee = employeeService.getOne(new QueryWrapper<Employee>().eq("e_no", loginDto.getUsername()));
+        //教师为空
+        if (teacher == null) {
+            //判断学生
+            Student student = studentService.getOne(new QueryWrapper<Student>().eq("stuId", loginDto.getUsername()));
 
             //管理员是否为空
-            if (employee == null) {
+            if (student == null) {
                 //判断是否为管理员
                 Admin admin = adminService.getOne(new QueryWrapper<Admin>().eq("username", loginDto.getUsername()));
 
@@ -123,12 +122,12 @@ public class AccountController {
                         return Result.fail("密码不正确");
                     } else {
                         //密码也正确
-                        String jwt = jwtUtils.generateToken(admin.getId());
+                        String jwt = jwtUtils.generateToken(admin.getAdminId());
                         response.setHeader("Authorization", jwt);
                         //将Authorization在响应首部暴露出来
                         response.setHeader("Access-control-Expose-Headers", "Authorization");
                         return Result.succ(MapUtil.builder()
-                                .put("id", admin.getId())
+                                .put("id", admin.getAdminId())
                                 .put("username", "管理员")
                                 .put("role", admin.getRole())
                                 .map()
@@ -136,38 +135,37 @@ public class AccountController {
                     }
                 }
             } else {
-                //员工存在 判断密码
-                if (!employee.getEPassword().equals(SecureUtil.md5(loginDto.getPassword()))) {
+                //学生存在 判断密码
+                if (!student.getPassword().equals(SecureUtil.md5(loginDto.getPassword()))) {
                     //密码不正确
                     return Result.fail("密码不正确");
                 } else {
                     //密码也正确
-                    String jwt = jwtUtils.generateToken(Long.valueOf(employee.getEId()));
+                    String jwt = jwtUtils.generateToken(Long.valueOf(student.getStuId()));
                     response.setHeader("Authorization", jwt);
                     response.setHeader("Access-control-Expose-Headers", "Authorization");
                     return Result.succ(MapUtil.builder()
-                            .put("id", employee.getEId())
-                            .put("username", employee.getEName())
-                            .put("role", employee.getRole())
-                            .put("depId", employee.getDepId())
+                            .put("id", student.getStuId())
+                            .put("username", student.getStuName())
+                            .put("role", student.getRole())
                             .map()
                     );
                 }
             }
         } else {
             //部门存在 判断密码
-            if (!department.getDepPassword().equals(SecureUtil.md5(loginDto.getPassword()))) {
+            if (!teacher.getPassword().equals(SecureUtil.md5(loginDto.getPassword()))) {
                 //密码错误
                 return Result.fail("密码不正确");
             } else {
-                String jwt = jwtUtils.generateToken(Long.valueOf(department.getDepId()));
+                String jwt = jwtUtils.generateToken(Long.valueOf(teacher.getTeaId()));
                 response.setHeader("Authorization", jwt);
                 response.setHeader("Access-control-Expose-Headers", "Authorization");
                 return Result.succ(MapUtil.builder()
                         //注意这里将long型id字符串 不然前台获取会四舍五入
-                        .put("id", department.getDepId())
-                        .put("username", department.getDepName())
-                        .put("role", department.getRole())
+                        .put("id", teacher.getTeaId())
+                        .put("username", teacher.getTeaName())
+                        .put("role", teacher.getRole())
                         .map()
                 );
             }

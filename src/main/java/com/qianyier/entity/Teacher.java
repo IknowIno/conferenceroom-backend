@@ -12,17 +12,15 @@ import java.io.Serializable;
 public class Teacher implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String stuId;
-    private String stuName;
+    private String teaId;
+    private String teaName;
     private String password;
-    private String stuEmail;
-    private String grade;
-    private Integer gender;
+    private String teaEmail;
+    private String college;
     private String major;
-    private Double gradePoint;
-    private String selfIntroduction;
-    private String studyPlan;
-    private String tutorName;
+    private String position;
+    private String researchDirection;
+    private String scientificResults;
     private String role;
 
 }
