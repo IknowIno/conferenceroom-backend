@@ -33,7 +33,7 @@ public class EmailServiceImpl implements EmailService {
     private JavaMailSender javaMailSender;
 
     @Override
-    public boolean sendStartMail(String to, String subject, Map<String,Object> content) throws SystemException {
+    public boolean sendResultMail(String to, String subject, Map<String,Object> content) throws SystemException {
         try {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage,true);
@@ -46,7 +46,7 @@ public class EmailServiceImpl implements EmailService {
         //定义模板数据
         context.setVariables(content);
         //获取thymeleaf的html模板
-        String emailContent = templateEngine.process("conferenceStartEmail",context); //指定模板路径
+        String emailContent = templateEngine.process("auditNotifyEmail",context); //指定模板路径
         messageHelper.setText(emailContent,true);
 
             javaMailSender.send(mimeMessage);  		//执行发送
@@ -58,7 +58,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public boolean sendAuditMail(String to, String subject, Map<String, Object> content) throws SystemException {
+    public boolean sendNotifyMail(String to, String subject, Map<String, Object> content) throws SystemException {
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage,true);

@@ -1,6 +1,7 @@
 package com.qianyier.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.qianyier.entity.Student;
 import com.qianyier.entity.Teacher;
 import com.qianyier.mapper.TeacherMapper;
 import com.qianyier.service.TeacherService;
@@ -15,5 +16,12 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
     @Override
     public Integer updateTeaInfo(String teaId, String teaEmail, String researchDirection, String scientificResults) {
         return teacherMapper.updateTeaInfo(teaId, teaEmail, researchDirection, scientificResults);
+    }
+
+    @Override
+    public Teacher getTeacherById(String teaId) {
+        Teacher teacher = teacherMapper.getTeacherById(teaId);
+        teacher.setPassword("*******");
+        return teacher;
     }
 }

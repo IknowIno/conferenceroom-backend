@@ -2,22 +2,20 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>审核通知</title>
+    <title>来自导师的通知</title>
 </head>
 <body>
 
-<h2>会议室申请审核通知</h2>
+<h2>亲爱的同学您好</h2>
 <span style="font-weight: bold;font-size: 20px" th:text="${result}"></span>
 <br>
-<span th:if="${rejectReason!=null}">驳回理由:</span><span style="font-weight: bold" th:text="${rejectReason}"></span>
+<span th:if="${rejectReason=null}">你的申请已被导师通过！</span>
+<span th:if="${rejectReason!=null}">被拒绝理由:</span><span style="font-weight: bold" th:text="${rejectReason}"></span>
 <br th:if="${rejectReason!=null}">
-<span>会议主题：</span><span style="font-weight: bold" th:text="${theme}"></span>
+<span>导师名：</span><span style="font-weight: bold" th:text="${teaName}"></span>
+<span>导师邮箱：</span><span style="font-weight: bold" th:text="${teaEmail}"></span>
 <br>
-<span>申请时间：</span><span style="font-weight: bold" th:text="${applyTime}"></span>
-<br>
-<span>会议室：</span><span style="font-weight: bold" th:text="${roomFloor}"></span><span>层 </span><span style="font-weight: bold" th:text="${roomNo}"></span>
-<br>
-<span>会议时间：</span><span style="font-weight: bold" th:text="${startTime}"></span><span>--</span><span  style="font-weight: bold" th:text="${endTime}"></span>
+<span th:if="${rejectReason!=null}">你仍可申请其他导师</span>
 
 </body>
 </html>

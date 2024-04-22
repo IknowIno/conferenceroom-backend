@@ -233,14 +233,28 @@ public class AccountController {
         }
     }
 
+    @GetMapping("/getstuinfo")
+    public Result getStudentById(@RequestBody String stuId){
+        Student student = studentService.getStudentById(stuId);
+        if (student == null){
+            return Result.fail("未查到该用户");
+        }else {
+            return Result.succ(student);
+        }
+    }
+
+    @GetMapping("/getteainfo")
+    public Result getTeacherById(@RequestBody String teaId){
+        Teacher teacherById = teacherService.getTeacherById(teaId);
+        if (teacherById == null){
+            return Result.fail("未查到该用户");
+        }else {
+            return Result.succ(teacherById);
+        }
+    }
+
+
 
 }
 
-//        //如果是修改的时候 是可以判断出存在的 还要判断id
-//        if(employee1!=null && (employee.getEId()==null || employee.getEId().equals(""))){
-//            return Result.fail("该部门已存在此工号,请设置其他工号");
-//        }
-//
-//        employee.setEPassword(SecureUtil.md5(employee.getEPassword()));
-//
-//        employeeService.saveOrUpdate(employee);
+

@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public interface EmailService {
 
-    boolean sendStartMail(String to, String subject, Map<String,Object> content) throws SystemException;
+    boolean sendResultMail(String to, String subject, Map<String,Object> content) throws SystemException;
 
-    boolean sendAuditMail(String to, String subject, Map<String,Object> content) throws SystemException;
+    boolean sendNotifyMail(String to, String subject, Map<String,Object> content) throws SystemException;
 }

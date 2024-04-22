@@ -7,4 +7,7 @@ import com.qianyier.entity.Teacher;
 public interface TeacherService extends IService<Teacher> {
 
     public Integer updateTeaInfo(String teaId,String teaEmail,String researchDirection,String scientificResults);
+
+    public Teacher getTeacherById(String teaId);
+
 }

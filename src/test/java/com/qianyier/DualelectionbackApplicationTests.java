@@ -4,9 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.qianyier.common.exception.SystemException;
 import com.qianyier.entity.Admin;
-import com.qianyier.entity.ConferenceRoom;
-import com.qianyier.entity.Employee;
-import com.qianyier.entity.group.ConRApplyRecord;
+
 import com.qianyier.service.*;
 import com.qianyier.util.JwtUtils;
 import io.jsonwebtoken.Jwts;
@@ -23,10 +21,9 @@ import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
-class ConferenceroombackApplicationTests {
+class DualelectionbackApplicationTests {
 
-    @Autowired
-    ConferenceRoomService conferenceRoomService;
+
 
     @Autowired
     JwtUtils jwtUtils;
@@ -34,8 +31,7 @@ class ConferenceroombackApplicationTests {
     @Autowired
     ApplyService applyService;
 
-    @Autowired
-    ConferenceRecordService conferenceRecordService;
+
 
     @Autowired
     EmailService emailService;
@@ -110,10 +106,10 @@ class ConferenceroombackApplicationTests {
          content.put("result","申请通过");
          content.put("theme","asdasda");
          content.put("applyTime","2020-06-25 15:02:00");
-       //boolean b =  emailService.sendStartMail("1984196795@qq.com","测试邮件发送",content);
+       //boolean b =  emailService.sendResultMail("1984196795@qq.com","测试邮件发送",content);
 
 
-       emailService.sendAuditMail("1984196795@qq.com","测试审核结果通知",content);
+       emailService.sendNotifyMail("1984196795@qq.com","测试审核结果通知",content);
 
      }
 

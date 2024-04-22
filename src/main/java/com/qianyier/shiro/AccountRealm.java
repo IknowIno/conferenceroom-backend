@@ -3,11 +3,13 @@ package com.qianyier.shiro;
 import cn.hutool.core.bean.BeanUtil;
 
 import com.qianyier.entity.Admin;
-import com.qianyier.entity.Department;
-import com.qianyier.entity.Employee;
+
+import com.qianyier.entity.Student;
+import com.qianyier.entity.Teacher;
 import com.qianyier.service.AdminService;
-import com.qianyier.service.DepartmentService;
-import com.qianyier.service.EmployeeService;
+
+import com.qianyier.service.StudentService;
+import com.qianyier.service.TeacherService;
 import com.qianyier.util.JwtUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -21,13 +23,13 @@ import org.springframework.stereotype.Component;
 public class AccountRealm extends AuthorizingRealm {
 
     @Autowired
-    DepartmentService departmentService;
+    TeacherService teacherService;
 
     @Autowired
     AdminService adminService;
 
     @Autowired
-    EmployeeService employeeService;
+    StudentService studentService;
 
     @Autowired
     JwtUtils jwtUtils;
@@ -59,39 +61,39 @@ public class AccountRealm extends AuthorizingRealm {
 
         JwtToken jwtToken = (JwtToken) token;
 
-        //有可能是部门id  也可能是admin id 也有可能是员工
+        //有可能是老师id  也可能是admin id 也有可能是学生
         String userId = jwtUtils.getClaimByToken((String) jwtToken.getPrincipal()).getSubject();
 
         //判断账号是否存在
-        Department department = departmentService.getById(userId);
-        if(department==null){
-            Employee employee = employeeService.getById(userId);
-            if(employee ==null){
+        Teacher teacher = teacherService.getById(userId);
+        if(teacher==null){
+            Student student = studentService.getById(userId);
+            if(student ==null){
                Admin admin = adminService.getById(Long.valueOf(userId));
                 if(admin == null) {
                     throw new UnknownAccountException("用户不存在");
                 }else{
                     //管理员
                     AccountProfile profile = new AccountProfile();
-                    profile.setId(String.valueOf(admin.getId()));
+                    profile.setId(String.valueOf(admin.getAdminId()));
                     profile.setRole(admin.getRole());
 
                     return new SimpleAuthenticationInfo(profile, jwtToken.getCredentials(), getName());
                 }
             }else{
-                //员工
-                System.out.println(employee);
+                //学生
+                System.out.println(student);
                 AccountProfile profile = new AccountProfile();
-                profile.setId(String.valueOf(employee.getEId()));
-                profile.setRole(employee.getRole());
+                profile.setId(String.valueOf(student.getStuId()));
+                profile.setRole(student.getRole());
 
                 return new SimpleAuthenticationInfo(profile, jwtToken.getCredentials(), getName());
             }
         }else{
-            //部门
+            //教师
             AccountProfile profile = new AccountProfile();
-            profile.setId(department.getDepId());
-            profile.setRole(department.getRole());
+            profile.setId(teacher.getTeaId());
+            profile.setRole(teacher.getRole());
 
             return new SimpleAuthenticationInfo(profile, jwtToken.getCredentials(), getName());
         }

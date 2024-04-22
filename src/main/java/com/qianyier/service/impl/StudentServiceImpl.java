@@ -15,4 +15,18 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     public Integer updateStuInfo(String stuId,String stuEmail,String selfIntroduction,String studyPlan){
         return studentMapper.updateStuInfo(stuId,stuEmail,selfIntroduction,studyPlan);
     }
+
+    @Override
+    public Integer updateTutorName(String stuId, String tutorName) {
+        return studentMapper.updateTutorName(stuId,tutorName);
+    }
+
+    @Override
+    public Student getStudentById(String stuId){
+        Student student= studentMapper.getStudentById(stuId);
+        student.setPassword("*******");
+        return student;
+    }
+
+
 }
